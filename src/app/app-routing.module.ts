@@ -7,10 +7,11 @@ import { VendasComponent } from './vendas/vendas-list/vendas.component';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: '/clientes', pathMatch: 'full' }, // Redireciona para '/clientes' se a rota estiver vazia
   { path: 'clientes', component: ClientesComponent },// Rota para o módulo de clientes
-  { path: 'produtos', component:  ProductsComponent},// Rota para o módulo de clientes
-  { path: 'vendas', component:  VendasComponent},// Rota para o módulo de clientes
-  { path: 'adicionar-clientes', component: AdicionarClientesComponent },
+  { path: 'produtos', component:  ProductsComponent},// Rota para o módulo de produtos
+  { path: 'vendas', component:  VendasComponent},// Rota para o módulo de vendas
+  { path: '**', redirectTo: '/clientes' } // Redireciona qualquer rota não encontrada para '/clientes'
 ];
 
 @NgModule({
