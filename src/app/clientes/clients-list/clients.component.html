@@ -19,6 +19,7 @@
   <table *ngIf="!loading && clientes.length > 0" class="client-table">
     <thead>
       <tr>
+        <th>Codigo</th>
         <th>Nome</th>
         <th>CPF</th>
         <th>Ações</th>
@@ -26,6 +27,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let cliente of clientes">
+        <td class="client-name">{{ cliente.codCliente }}</td>
         <td class="client-name">{{ cliente.nome }}</td>
         <td class="client-cpf">{{ cliente.cpf }}</td>
         <td>

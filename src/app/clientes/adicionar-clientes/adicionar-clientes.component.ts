@@ -24,6 +24,7 @@ export class AdicionarClientesComponent {
     @Inject(MAT_DIALOG_DATA) public data: { clienteId?: string } // Recebe o ID do cliente se estiver editando
   ) {
     this.clienteForm = this.fb.group({
+      codCliente: ['', Validators.required],
       nome: ['', Validators.required],
       cpf: ['', [Validators.required,cpfValidator()]],
       email: ['', [Validators.required]],

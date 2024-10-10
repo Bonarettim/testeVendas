@@ -22,18 +22,19 @@
     <div class="modal-content">
       <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
         <div class="form-row" style="margin-bottom: 10px;">
+
           <div class="form-group col-4" style="margin-right: 10px;">
-            <label for="nome">Nome</label>
-            <input id="nome" type="text" formControlName="nome" required />
-            <div *ngIf="(clienteForm.get('nome')?.invalid && (clienteForm.get('nome')?.dirty || clienteForm.get('nome')?.touched))">
+            <label for="codCliente">Codigo do Cliente</label>
+            <input id="codCliente" type="text" formControlName="codCliente" required />
+            <div *ngIf="(clienteForm.get('codCliente')?.invalid && (clienteForm.get('codCliente')?.dirty || clienteForm.get('codCliente')?.touched))">
               <span class="error-message">Campo obrigatório</span>
             </div>
           </div>
 
-          <div class="form-group col-4">
-            <label for="email">Email</label>
-            <input id="email" type="email" formControlName="email" required />
-            <div *ngIf="(clienteForm.get('email')?.invalid && (clienteForm.get('email')?.dirty || clienteForm.get('email')?.touched))">
+          <div class="form-group col-4" style="margin-right: 10px;">
+            <label for="nome">Nome</label>
+            <input id="nome" type="text" formControlName="nome" required />
+            <div *ngIf="(clienteForm.get('nome')?.invalid && (clienteForm.get('nome')?.dirty || clienteForm.get('nome')?.touched))">
               <span class="error-message">Campo obrigatório</span>
             </div>
           </div>
@@ -48,6 +49,16 @@
               <span class="error-message">Campo obrigatório</span>
             </div>
           </div>
+
+          <div class="form-group col-4">
+            <label for="email">Email</label>
+            <input id="email" type="email" formControlName="email" required />
+            <div *ngIf="(clienteForm.get('email')?.invalid && (clienteForm.get('email')?.dirty || clienteForm.get('email')?.touched))">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+
+         
           
         </div>
 

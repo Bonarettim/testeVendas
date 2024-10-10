@@ -26,6 +26,7 @@ export class AdicionarProductsComponent {
     this.produtoForm = this.fb.group({
       nome: ['', Validators.required],
       valor: ['', [Validators.required]],
+      codProduct: ['', Validators.required]
     });
 
     // Se um ID de produto for fornecido, estamos em modo de edição

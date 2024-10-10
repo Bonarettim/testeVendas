@@ -23,6 +23,14 @@
       <form [formGroup]="produtoForm" (ngSubmit)="onSubmit()">
         <div class="form-row" style="margin-bottom: 10px;">
           <div class="form-group col-4" style="margin-right: 10px;">
+            <label for="codProduct">Codigo Produto</label>
+            <input id="codProduct" type="text" formControlName="codProduct" required />
+            <div *ngIf="(produtoForm.get('codProduct')?.invalid && (produtoForm.get('codProduct')?.dirty || produtoForm.get('codProduct')?.touched))">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-4" style="margin-right: 10px;">
             <label for="nome">Nome</label>
             <input id="nome" type="text" formControlName="nome" required />
             <div *ngIf="(produtoForm.get('nome')?.invalid && (produtoForm.get('nome')?.dirty || produtoForm.get('nome')?.touched))">
