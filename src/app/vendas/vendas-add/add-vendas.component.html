@@ -1,0 +1,100 @@
+<style>
+  .form-group {
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  .error-message {
+    color: red;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    font-size: 12px;
+  }
+
+  select, input[type="datetime-local"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .quantidade-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .quantidade-button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  .quantidade-display {
+    width: 50px;
+    text-align: center;
+  }
+</style>
+
+<div class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Adicionar Venda</h2>
+    </div>
+
+    <div class="modal-content">
+      <form [formGroup]="vendaForm" (ngSubmit)="onSubmit()">
+        <div class="form-row" style="margin-bottom: 10px;">
+          <div class="form-group col-4" style="margin-right: 10px;">
+            <label for="idCliente">Cliente</label>
+            <select id="idCliente" formControlName="idCliente" required>
+              <option value="" disabled selected>Selecione um cliente</option>
+              <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nome }}</option>
+            </select>
+            <div *ngIf="vendaForm.get('idCliente')?.invalid && (vendaForm.get('idCliente')?.dirty || vendaForm.get('idCliente')?.touched)">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+          
+          <div class="form-group col-4" style="margin-right: 10px;">
+            <label for="idProduto">Produto</label>
+            <select id="idProduto" formControlName="idProduto" (change)="atualizarValorTotal()" required>
+              <option value="" disabled selected>Selecione um produto</option>
+              <option *ngFor="let produto of produtos" [value]="produto.id">{{ produto.nome }}</option>
+            </select>
+            <div *ngIf="vendaForm.get('idProduto')?.invalid && (vendaForm.get('idProduto')?.dirty || vendaForm.get('idProduto')?.touched)">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+          
+
+          <div class="form-group col-4">
+            <label for="totalValor">Total da Venda</label>
+            <input id="totalValor" type="text" formControlName="totalValor" required readonly>
+            <div *ngIf="vendaForm.get('totalValor')?.invalid && (vendaForm.get('totalValor')?.dirty || vendaForm.get('totalValor')?.touched)">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="form-group col-4" style="margin-bottom: 10px;">
+          <label for="dataHora">Data e Hora</label>
+          <input id="dataHora" type="datetime-local" formControlName="dataHora" required />
+          <div *ngIf="vendaForm.get('dataHora')?.invalid && (vendaForm.get('dataHora')?.dirty || vendaForm.get('dataHora')?.touched)">
+            <span class="error-message">Campo obrigatório</span>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn secondary" (click)="onNoClick()">Cancelar</button>
+          <button type="submit" class="btn primary">Adicionar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

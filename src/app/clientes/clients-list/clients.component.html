@@ -1,0 +1,37 @@
+<div class="container">
+  <header>
+    <h1>Lista de Clientes</h1>
+    <button class="btn primary" (click)="openDialog()"> + Adicionar Cliente</button>
+  </header>
+
+  <!-- Indicador de carregamento -->
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+    <p>Carregando clientes...</p>
+  </div>
+
+  <!-- Mensagem quando não há clientes -->
+  <div *ngIf="!loading && clientes.length === 0">
+    <p>Nenhum cliente encontrado.</p>
+  </div>
+
+  <!-- Lista de clientes -->
+  <table *ngIf="!loading && clientes.length > 0" class="client-table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clientes">
+        <td class="client-name">{{ cliente.nome }}</td>
+        <td class="client-cpf">{{ cliente.cpf }}</td>
+        <td>
+          <button class="btn secondary" (click)="editarCliente(cliente)">Editar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,43 @@
+<div class="container">
+  <header>
+    <h1>Lista de Vendas</h1>
+    <button class="btn primary" (click)="openDialog()"> + Adicionar venda</button>
+  </header>
+
+  <!-- Indicador de carregamento -->
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+    <p>Carregando vendas...</p>
+  </div>
+
+  <!-- Mensagem quando não há vendas -->
+  <div *ngIf="!loading && vendas.length === 0">
+    <p>Nenhum venda encontrado.</p>
+  </div>
+
+  <!-- Lista de vendas -->
+  <table *ngIf="!loading && vendas.length > 0" class="client-table">
+    <thead>
+      <tr>
+        <th>Codigo do Venda</th>
+        <th>Nome</th>
+        <th>Produto</th>
+        <th>Valor</th>
+        <th>Data/Hora</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let venda of vendas">
+        <td class="client-name">{{ venda.id }}</td>
+        <td class="client">{{ venda.nomeCliente }}</td>
+        <td class="client"> {{ venda.nomeProduto }}</td>
+        <td class="client"> {{ venda.dataHora | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td class="client"> R$ {{ venda.totalValor }}</td>
+        <td>
+          <button class="btn secondary" (click)="editarvenda(venda)">Editar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

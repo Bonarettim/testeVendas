@@ -1,11 +1,129 @@
-<h1>Adicionar Cliente</h1>
-<form>
-  <label for="nome">Nome:</label>
-  <input type="text" id="nome" required>
-  <br>
-  <label for="email">Email:</label>
-  <input type="email" id="email" required>
-  <br>
-  <button type="submit">Adicionar Cliente</button>
-</form>
-<a routerLink="/clientes">Voltar para a lista de clientes</a>
+<style>
+  .form-group {
+    position: relative;
+    margin-bottom: 10px; 
+  }
+
+  .error-message {
+    color: red; 
+    position: absolute; 
+    bottom: -20px;
+    left: 0;
+    font-size: 12px;
+  }
+</style>
+
+<div class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Adicionar Cliente</h2>
+    </div>
+
+    <div class="modal-content">
+      <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+        <div class="form-row" style="margin-bottom: 10px;">
+          <div class="form-group col-4" style="margin-right: 10px;">
+            <label for="nome">Nome</label>
+            <input id="nome" type="text" formControlName="nome" required />
+            <div *ngIf="(clienteForm.get('nome')?.invalid && (clienteForm.get('nome')?.dirty || clienteForm.get('nome')?.touched))">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-4">
+            <label for="email">Email</label>
+            <input id="email" type="email" formControlName="email" required />
+            <div *ngIf="(clienteForm.get('email')?.invalid && (clienteForm.get('email')?.dirty || clienteForm.get('email')?.touched))">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-4" style="margin-right: 10px;">
+            <label for="cpf">CPF</label>
+            <input id="cpf" type="text" formControlName="cpf" required mask="000.000.000-00" />
+            <div *ngIf="clienteForm.get('cpf')?.hasError('invalidCpf') && (clienteForm.get('cpf')?.dirty || clienteForm.get('cpf')?.touched)">
+              <span class="error-message">CPF inválido</span>
+            </div>
+            <div *ngIf="clienteForm.get('cpf')?.hasError('required') && (clienteForm.get('cpf')?.dirty || clienteForm.get('cpf')?.touched)">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+          
+        </div>
+
+
+        <div class="form-row" style="margin-bottom: 10px;">
+          <div class="form-group col-4" style="margin-right: 10px;">
+            <label for="dataNascimento">Data de Nascimento</label>
+            <input id="dataNascimento" type="date" formControlName="dataNascimento" required />
+            <div *ngIf="(clienteForm.get('dataNascimento')?.invalid && (clienteForm.get('dataNascimento')?.dirty || clienteForm.get('dataNascimento')?.touched))">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-4" style="margin-right: 10px;">
+            <label for="cep">CEP</label>
+            <input id="cep" type="text" formControlName="cep" required (blur)="buscarEndereco()" />
+            <div *ngIf="(clienteForm.get('cep')?.invalid && (clienteForm.get('cep')?.dirty || clienteForm.get('cep')?.touched))">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-4">
+            <label for="estado">Estado</label>
+            <input id="estado" type="text" formControlName="estado" required />
+            <div *ngIf="(clienteForm.get('estado')?.invalid && (clienteForm.get('estado')?.dirty || clienteForm.get('estado')?.touched))">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row" style="margin-bottom: 10px;">
+          <div class="form-group col-4" style="margin-right: 10px;">
+            <label for="logradouro">Logradouro</label>
+            <input id="logradouro" type="text" formControlName="logradouro" required />
+            <div *ngIf="(clienteForm.get('logradouro')?.invalid && (clienteForm.get('logradouro')?.dirty || clienteForm.get('logradouro')?.touched))">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-4" style="margin-right: 10px;">
+            <label for="numero">Número</label>
+            <input id="numero" type="text" formControlName="numero" required />
+            <div *ngIf="(clienteForm.get('numero')?.invalid && (clienteForm.get('numero')?.dirty || clienteForm.get('numero')?.touched))">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-4">
+            <label for="bairro">Bairro</label>
+            <input id="bairro" type="text" formControlName="bairro" required />
+            <div *ngIf="(clienteForm.get('bairro')?.invalid && (clienteForm.get('bairro')?.dirty || clienteForm.get('bairro')?.touched))">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row" style="margin-bottom: 10px;">
+          <div class="form-group col-4" style="margin-right: 10px;">
+            <label for="cidade">Cidade</label>
+            <input id="cidade" type="text" formControlName="cidade" required />
+            <div *ngIf="(clienteForm.get('cidade')?.invalid && (clienteForm.get('cidade')?.dirty || clienteForm.get('cidade')?.touched))">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-4" style="margin-right: 10px;">
+            <label for="complemento">Complemento</label>
+            <input id="complemento" type="text" formControlName="complemento" />
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn secondary" (click)="onNoClick()">Cancelar</button>
+          <button type="submit" class="btn primary">Adicionar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

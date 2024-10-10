@@ -198,3 +198,29 @@
   font-size: 0.875rem; /* Tamanho da fonte */
   margin-top: 5px; /* Espaçamento acima das mensagens de erro */
 }
+
+
+.quantity-controls {
+  display: flex; /* Usar flexbox para alinhar os itens */
+  align-items: center; /* Alinha os itens no centro */
+  margin-top: 5px; /* Adiciona espaço acima dos controles */
+}
+
+.quantity-controls button {
+  border: 1px solid #ccc; /* Borda dos botões */
+  background-color: #fff; /* Fundo branco */
+  padding: 5px 10px; /* Espaçamento interno dos botões */
+  cursor: pointer; /* Muda o cursor para indicar que o botão é clicável */
+}
+
+.quantity-controls input {
+  text-align: center; /* Centraliza o texto no input */
+}
+
+
+input[disabled] {
+  background-color: #f0f0f0; /* Cor de fundo cinza claro */
+  color: #aaa; /* Cor do texto cinza */
+  cursor: not-allowed; /* Muda o cursor para indicar que não pode ser editado */
+  border: 1px solid #ccc; /* Mantém a borda padrão */
+}

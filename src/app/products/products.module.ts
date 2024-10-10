@@ -7,11 +7,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
-import { ClientesComponent } from './clients-list/clients.component'; // Ajuste o caminho conforme necessário
+import { ProductsComponent } from './product-list/product.component'; // Ajuste o caminho conforme necessário
 
 @NgModule({
   declarations: [
-    ClientesComponent, // Declare o componente aqui
+    ProductsComponent, // Declare o componente aqui
     // Outros componentes relacionados, se houver
   ],
   imports: [
@@ -23,7 +23,7 @@ import { ClientesComponent } from './clients-list/clients.component'; // Ajuste 
     MatProgressSpinnerModule
   ],
   exports: [
-    ClientesComponent // Se você precisar usar esse componente em outros módulos
+    ProductsComponent // Se você precisar usar esse componente em outros módulos
   ]
 })
 export class ClientesModule { }

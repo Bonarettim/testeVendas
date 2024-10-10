@@ -1,0 +1,39 @@
+<div class="container">
+  <header>
+    <h1>Lista de Produtos</h1>
+    <button class="btn primary" (click)="openDialog()"> + Adicionar produto</button>
+  </header>
+
+  <!-- Indicador de carregamento -->
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+    <p>Carregando produtos...</p>
+  </div>
+
+  <!-- Mensagem quando não há produtos -->
+  <div *ngIf="!loading && produtos.length === 0">
+    <p>Nenhum produto encontrado.</p>
+  </div>
+
+  <!-- Lista de produtos -->
+  <table *ngIf="!loading && produtos.length > 0" class="client-table">
+    <thead>
+      <tr>
+        <th>Codigo do Produto</th>
+        <th>Nome</th>
+        <th>Valor</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produto of produtos">
+        <td class="client-name">{{ produto.id }}</td>
+        <td class="client-cpf">{{ produto.nome }}</td>
+        <td class="client-cpf"> R$ {{ produto.valor }}</td>
+        <td>
+          <button class="btn secondary" (click)="editarproduto(produto)">Editar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

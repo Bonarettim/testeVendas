@@ -1,0 +1,50 @@
+<style>
+  .form-group {
+    position: relative; /* Para que o posicionamento absoluto funcione corretamente */
+    margin-bottom: 10px; /* Adiciona um espaçamento entre os grupos de formulário */
+  }
+
+  .error-message {
+    color: red; /* Cor da mensagem de erro */
+    position: absolute; /* Tira do fluxo normal do documento */
+    bottom: -20px; /* Ajusta a posição da mensagem */
+    left: 0; /* Alinha à esquerda do input */
+    font-size: 12px; /* Tamanho da fonte da mensagem de erro */
+  }
+</style>
+
+<div class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Adicionar Produto</h2>
+    </div>
+
+    <div class="modal-content">
+      <form [formGroup]="produtoForm" (ngSubmit)="onSubmit()">
+        <div class="form-row" style="margin-bottom: 10px;">
+          <div class="form-group col-4" style="margin-right: 10px;">
+            <label for="nome">Nome</label>
+            <input id="nome" type="text" formControlName="nome" required />
+            <div *ngIf="(produtoForm.get('nome')?.invalid && (produtoForm.get('nome')?.dirty || produtoForm.get('nome')?.touched))">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+
+          <div class="form-group col-4">
+            <label for="valor">Valor</label>
+            <input id="valor" type="valor" formControlName="valor" required />
+            <div *ngIf="(produtoForm.get('valor')?.invalid && (produtoForm.get('valor')?.dirty || produtoForm.get('valor')?.touched))">
+              <span class="error-message">Campo obrigatório</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn secondary" (click)="onNoClick()">Cancelar</button>
+          <button type="submit" class="btn primary">Adicionar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

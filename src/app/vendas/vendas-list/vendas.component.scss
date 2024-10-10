@@ -1,0 +1,105 @@
+/* Container principal */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Cabeçalho */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Títulos */
+  h1 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+  }
+  
+  /* Botões */
+  .btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .btn.primary {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .btn.secondary {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  .btn.secondary:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Lista de Clientes */
+  .client-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .client-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .client-info {
+    font-size: 16px;
+  }
+  
+  .client {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .client-name {
+    color: #333;
+  }
+ 
+  
+  .loading-spinner {
+    display: flex;
+    flex-direction: column; /* Empilha o spinner e a mensagem verticalmente */
+    align-items: center; /* Centraliza o conteúdo horizontalmente */
+    margin-top: 20px; /* Espaço acima do spinner */
+  }
+  
+
+  .client-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .client-table th, .client-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .client-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .client-table tr:hover {
+    background-color: #f5f5f5;
+  }
+  
