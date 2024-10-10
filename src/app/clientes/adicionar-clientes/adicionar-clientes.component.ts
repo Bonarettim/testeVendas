@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { v4 as uuidv4 } from 'uuid'; // Importa a função para gerar UUIDs
 import { ViaCepService } from 'src/app/services/via-cep.service';
 import { cpfValidator } from 'src/app/validators/cpf-validator'; // Importa o validador
+import { Cliente } from '../../models/cliente.model'; // Ajuste o caminho conforme necessário
 
 @Component({
   selector: 'app-adicionar-clientes',
@@ -102,29 +103,24 @@ export class AdicionarClientesComponent {
     // Marca todos os campos como tocados para exibir as mensagens de erro
     this.clienteForm.markAllAsTouched();
   
-  
     if (this.clienteForm.valid) {
       const db = database; // Use a referência do banco de dados já inicializado
+  
+      // Cria um objeto cliente a partir dos valores do formulário
+      const cliente: Cliente = {
+        id: this.isEditMode ? this.clienteId : uuidv4(), // Gera um novo ID se não estiver em modo de edição
+        ...this.clienteForm.value, // Desestrutura os valores do formulário
+      };
   
       try {
         if (this.isEditMode) {
           // Atualiza o cliente existente
           const clienteRef = ref(db, `client/${this.clienteId}`);
-          await set(clienteRef, { 
-            id: this.clienteId, // Mantém o ID do cliente existente
-            ...this.clienteForm.value 
-          });
+          await set(clienteRef, cliente); // Atualiza os dados do cliente
         } else {
           // Adiciona um novo cliente
-          const clienteRef = ref(db, 'client'); // Referência para a coleção de clientes
-          const newClienteId = uuidv4(); // Gera um ID aleatório
-          const newClienteRef = ref(db, `client/${newClienteId}`); // Cria uma nova referência usando o ID gerado
-  
-          // Adiciona o ID aleatório aos dados do cliente
-          await set(newClienteRef, {
-            id: newClienteId, // Adiciona o ID ao objeto cliente
-            ...this.clienteForm.value // Adiciona os dados do formulário
-          });
+          const newClienteRef = ref(db, `client/${cliente.id}`); // Cria uma nova referência usando o ID gerado
+          await set(newClienteRef, cliente); // Armazena o cliente no Firebase
         }
   
         this.clienteForm.reset(); // Resetando o formulário
@@ -138,5 +134,6 @@ export class AdicionarClientesComponent {
       console.error('Campos inválidos:', invalidFields); // Exibe os campos inválidos
     }
   }
+  
   
 }

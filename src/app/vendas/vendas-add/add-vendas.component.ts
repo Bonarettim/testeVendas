@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { v4 as uuidv4 } from 'uuid'; // Importa a função para gerar UUIDs
 import { ViaCepService } from 'src/app/services/via-cep.service';
 import { cpfValidator } from 'src/app/validators/cpf-validator'; // Importa o validador
+import { Venda } from '../../models/venda.model'; // Ajuste o caminho conforme necessário
 
 @Component({
   selector: 'app-add-vendas',
@@ -168,41 +169,24 @@ export class AdicionarVendasComponent {
     if (this.vendaForm.valid) {
         const db = database; // Use a referência do banco de dados já inicializado
 
+        // Cria um objeto venda a partir dos valores do formulário
+        const venda: Venda = {
+            id: this.isEditMode ? this.vendaId : uuidv4(), // Gera um novo ID se não estiver em modo de edição
+            ...this.vendaForm.value, // Desestrutura os valores do formulário
+            quantidade: this.quantidade, // Adiciona a quantidade
+            clienteId: this.vendaForm.get('idCliente')?.value, // Obtém o ID do cliente
+            produtoId: this.vendaForm.get('idProduto')?.value, // Obtém o ID do produto
+        };
+
         try {
-            // Adicione a quantidade ao objeto de venda
-            debugger
-            const vendaData = {
-                ...this.vendaForm.value,
-                quantidade: this.quantidade // Adiciona a quantidade
-            };
-
-            // Inclui os IDs que você quer enviar
-            const clienteId = this.vendaForm.get('idCliente')?.value;
-            const produtoId = this.vendaForm.get('idProduto')?.value;
-
             if (this.isEditMode) {
                 // Atualiza a venda existente
                 const vendaRef = ref(db, `venda/${this.vendaId}`);
-                await set(vendaRef, { 
-                    id: this.vendaId, // Mantém o ID do venda existente
-                    ...vendaData,
-                    clienteId, // Adiciona o ID do cliente
-                    produtoId, // Adiciona o ID do produto
-                });
+                await set(vendaRef, venda); // Atualiza os dados da venda
             } else {
-              debugger
-                // Adiciona um novo venda
-                const vendaRef = ref(db, 'venda'); // Referência para a coleção de vendas
-                const newVendaId = uuidv4(); // Gera um ID aleatório
-                const newVendaRef = ref(db, `venda/${newVendaId}`); // Cria uma nova referência usando o ID gerado
-
-                // Adiciona o ID aleatório aos dados do venda
-                await set(newVendaRef, {
-                    id: newVendaId, // Adiciona o ID ao objeto venda
-                    ...vendaData, // Adiciona os dados do formulário
-                    clienteId, // Adiciona o ID do cliente
-                    produtoId, // Adiciona o ID do produto
-                });
+                // Adiciona uma nova venda
+                const newVendaRef = ref(db, `venda/${venda.id}`); // Cria uma nova referência usando o ID gerado
+                await set(newVendaRef, venda); // Armazena a venda no Firebase
             }
 
             this.vendaForm.reset(); // Resetando o formulário
@@ -217,5 +201,6 @@ export class AdicionarVendasComponent {
         console.error('Campos inválidos:', invalidFields); // Exibe os campos inválidos
     }
 }
+
 
 }
