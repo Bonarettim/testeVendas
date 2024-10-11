@@ -28,8 +28,8 @@
     <tbody>
       <tr *ngFor="let produto of produtos">
         <td class="client-name">{{ produto.codProduct }}</td>
-        <td class="client-cpf">{{ produto.nome }}</td>
-        <td class="client-cpf"> R$ {{ produto.valor }}</td>
+        <td class="client">{{ produto.nome }}</td>
+        <td class="client"> R$ {{ produto.valor }}</td>
         <td>
           <button class="btn secondary" (click)="editarproduto(produto)">Editar</button>
         </td>
